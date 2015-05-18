@@ -86,8 +86,8 @@ $(function(){
             model.init();
             listView.init();
             octopus.addAllCats();
-            octopus.setCurrentCat();
             clickView.init();
+            octopus.setCurrentCat();
         }
     };
 
@@ -128,21 +128,20 @@ $(function(){
 
     var clickView = {
     	init: function() {
-			var catCounter = document.getElementById('counter');
-			var catViewer = document.getElementById('cat_viewer');
-    		currentCat = octopus.getCurrentCat();
-    		clickView.render();
-    		catViewer.addEventListener('click', function() {
+			this.catCounter = document.getElementById('counter');
+			this.catViewer = document.getElementById('cat_viewer');
+    		var currentCat = octopus.getCurrentCat();
+
+    		this.catViewer.addEventListener('click', function() {
     			octopus.clickCat();
     		});
+    		this.render();
     	},
     	render: function() {
-			var catCounter = document.getElementById('counter');
-			var catViewer = document.getElementById('cat_viewer');
-    		currentCat = octopus.getCurrentCat();
+    		var currentCat = octopus.getCurrentCat();
 
-    		catCounter.innerHTML = currentCat.name + ' count: ' + currentCat.count;
-    		catViewer.src = 'img/' + currentCat.pic;
+    		this.catCounter.innerHTML = currentCat.name + ' count: ' + currentCat.count;
+    		this.catViewer.src = 'img/' + currentCat.pic;
     	},
     };
 
