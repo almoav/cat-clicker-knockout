@@ -1,0 +1,7 @@
+#cat_container {
+	display: flex;
+}
+
+.cat-box {
+	width : 110px;
+}
