@@ -193,7 +193,7 @@ $(function(){
 
     		saveBtn.addEventListener('click', function() {
     			thisCopy.saveInputs();
-    			//adminArea.style.display = 'initial';
+    			adminArea.style.display = 'none';
     		});
 
     		cancelBtn.addEventListener('click', function() {
