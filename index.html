@@ -8,13 +8,26 @@
 <body>
     <h1>Cat Clicker</h1>
         <div class = 'col-md-12'>
-            <div id = 'cat_container'>
-            </div>
+            <div id = 'cat_container'></div>
                 <h2 id = 'counter'>count: 0</h2>
                 <img id = 'cat_viewer' height = '500px'>
-                <audio id = 'meow' src = 'media/meow.wav' preload = 'auto'>
+                <!--<audio id = 'meow' src = 'media/meow.wav' preload = 'auto'>-->
+            <button id = 'btn-admin'>admin</button>
+            <div id = 'admin_area'>
+
+                <form id = 'form-admin-name'>name</form>
+                <input id = 'input-admin-name'>
+
+                <form id = 'form-admin-url'>img url</form>
+                <input id = 'input-admin-url'>
+
+                <form id = 'form-admin-count'>count</form>
+                <input id = 'input-admin-count'>
+
+                <button id = 'btn-admin-save'>save</button>
+                <button id = 'btn-admin-cancel'>cancel</button>
             </div>
-    </div>
+        </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script async src="js/main.js"></script>
 </body>

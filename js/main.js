@@ -2,7 +2,6 @@ $(function(){
 	var model = {
         init: function() {
             localStorage.cats = JSON.stringify([]);
-            localStorage.currentCat;
             localStorage.catIndex = 0;
         },
 
@@ -17,6 +16,7 @@ $(function(){
         },
 
         setCat: function(obj) {
+        	// commits the object param to the current index
         	var data = JSON.parse(localStorage.cats);
         	data[localStorage.catIndex] = obj;
         	localStorage.cats = JSON.stringify(data)
@@ -35,22 +35,35 @@ $(function(){
     var octopus = {
         addAllCats: function() {
 			// the source cat pics
-			var catPics = ['derpy.jpg', 'furpy.jpg', 'lerpy.jpg', 'smurpy.jpg', 'ted.jpg'];
+			//var catPics = ['derpy.jpg', 'furpy.jpg', 'lerpy.jpg', 'smurpy.jpg', 'ted.jpg'];
+			var catObjs = [{
+				name: 'derpy',
+				url: 'img/derpy.jpg',
+				count: 0
+			}, {
+				name: 'furpy',
+				url: 'img/furpy.jpg',
+				count: 0
+			}, {
+				name: 'lurpy',
+				url: 'img/lurpy.jpg',
+				count: 0
+			}, {
+				name: 'smurpy',
+				url: 'img/smurpy.jpg',
+				count: 0
+			}, {
+				name: 'ted',
+				url: 'img/ted.jpg',
+				count: 0
+			}];
 
 			// declare variables here outside of the loop
-			var picCount = catPics.length;
-			var catPic, catName, catElem, catCounter;
+			var picCount = catObjs.length;
+			//var catElem, catCounter;
 
 			for (i=0; i<picCount; i++) {
-				// format the cat strings nicely
-				catPic = catPics[i];
-				catName = catPic.replace('.jpg', '');
-				// add to local storage
-				model.add({
-					pic : catPic,
-					name : catName,
-					count : 0
-				});
+				model.add(catObjs[i]);
 			}
             listView.render();
         },
@@ -73,21 +86,31 @@ $(function(){
         		};
         	}
         	clickView.render();
+        	adminWin.fillInputs();
         },
 
         clickCat: function() {
         	cat = model.getCat();
         	cat.count++;
-        	model.setCat(cat);
+        	this.saveCat(cat);
+        },
+
+        saveCat: function(obj) {
+        	// saves the obj param as the current cat object
+        	model.setCat(obj);
         	clickView.render();
+        	listView.render();
+        	adminWin.fillInputs();
         },
 
         init: function() {
             model.init();
             listView.init();
+            adminWin.init();
             octopus.addAllCats();
             clickView.init();
             octopus.setCurrentCat();
+
         }
     };
 
@@ -98,6 +121,7 @@ $(function(){
         render: function(){
 			// save the DOM elements we are interested in
 			var catContainer = document.getElementById('cat_container');
+			catContainer.innerHTML = '';
 
         	octopus.getCats().forEach(function(cat){
 
@@ -105,7 +129,7 @@ $(function(){
 				catElem = document.createElement('img');
 				catElem.id = cat.name;
 			    catElem.className = 'cat';
-			    catElem.src = "img/"+cat.pic;
+			    catElem.src = cat.url;
 
 				// cat's displayed name text
 				catText = document.createElement('span');
@@ -132,6 +156,7 @@ $(function(){
 			this.catViewer = document.getElementById('cat_viewer');
     		var currentCat = octopus.getCurrentCat();
 
+    		// add click action to the viewer
     		this.catViewer.addEventListener('click', function() {
     			octopus.clickCat();
     		});
@@ -139,10 +164,59 @@ $(function(){
     	},
     	render: function() {
     		var currentCat = octopus.getCurrentCat();
-
+    		// update the viewer with current cat data
     		this.catCounter.innerHTML = currentCat.name + ' count: ' + currentCat.count;
-    		this.catViewer.src = 'img/' + currentCat.pic;
+    		this.catViewer.src = currentCat.url;
     	},
+    };
+
+    var adminWin = {
+    	init: function() {
+    		var adminArea = document.getElementById('admin_area');
+
+    		var adminBtn = document.getElementById('btn-admin');
+    		var saveBtn = document.getElementById('btn-admin-save');
+    		var cancelBtn = document.getElementById('btn-admin-cancel');
+
+    		this.nameInput = document.getElementById('input-admin-name');
+    		this.urlInput = document.getElementById('input-admin-url');
+    		this.countInput = document.getElementById('input-admin-count');
+
+    		adminArea.style.display = 'none';
+    		thisCopy = this;
+
+    		adminBtn.addEventListener('click', function() {
+    			adminArea.style.display = 'initial';
+    			//console.log(thisCopy);
+    			thisCopy.fillInputs();
+    		});
+
+    		saveBtn.addEventListener('click', function() {
+    			thisCopy.saveInputs();
+    			//adminArea.style.display = 'initial';
+    		});
+
+    		cancelBtn.addEventListener('click', function() {
+    			adminArea.style.display = 'none';
+    		});
+
+
+    	},
+
+    	fillInputs: function() {
+    		cat = octopus.getCurrentCat();
+    		this.nameInput.value = cat.name;
+    		this.urlInput.value = cat.url;
+    		this.countInput.value = cat.count;
+    	},
+
+    	saveInputs: function() {
+    		cat = octopus.getCurrentCat();
+    		cat.name = this.nameInput.value;
+    		cat.url = this.urlInput.value;
+    		cat.count = this.countInput.value;
+    		octopus.saveCat(cat);
+    	}
     };
 
     octopus.init();
