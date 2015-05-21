@@ -7,13 +7,13 @@
 </head>
 <body>
 
-    <h2 id='cat-name' data-bind='text: name'></h2>
-    <p>level: <strong data-bind='text: level'></strong></p>
-    <div id='cat-count' data-bind='text: clickCount'></div>
-    <img id='cat-img' alt='cute cat' data-bind='click: incrementCounter, attr: {src: imgSrc}'>
+    <h2 class='cat-name' data-bind='text: currentCat().name'></h2>
+    <p>level: <strong data-bind='text: currentCat().level'></strong></p>
+    <div class='cat-count' data-bind='text: currentCat().clickCount'></div>
+    <img class='cat-img' alt='cute cat' data-bind='click: incrementCounter, attr: {src: currentCat().imgSrc}'>
 
     <h3>Nicknames</h3>
-    <ul data-bind='foreach: nicknames'>
+    <ul data-bind='foreach: currentCat().nicknames'>
         <li>
             <span data-bind='text: name'></span>
         </li>

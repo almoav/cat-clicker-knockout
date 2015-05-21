@@ -1,4 +1,4 @@
-var AppViewModel = function() {
+var Cat = function() {
     this.clickCount = ko.observable(0);
     this.name = ko.observable('Derpy');
     this.imgSrc = ko.observable('img/derpy.jpg');
@@ -10,17 +10,27 @@ var AppViewModel = function() {
     ]);
 
     this.level = ko.computed(function() {
-        if (this.clickCount() > 25) {
-            return 'teen';
-        } else if (this.clickCount() > 12) {
-            return 'kitten';
-        } else {
+        if (this.clickCount() < 10) {
             return 'newborn';
+        } else if (this.clickCount() < 25) {
+            return 'kitten';
+        } else if (this.clickCount() < 50){
+            return 'teen';
+        } else if (this.clickCount() < 100) {
+            return 'adult';
+        } else {
+            return 'geriatric kitty';
         }
     }, this);
+}
+
+
+var AppViewModel = function() {
+
+    this.currentCat = ko.observable( new Cat() );
 
     this.incrementCounter = function() {
-        this.clickCount(this.clickCount() + 1);
+        this.currentCat().clickCount(this.currentCat().clickCount() + 1);
     };
 
 
