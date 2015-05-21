@@ -3,7 +3,7 @@ A simple web app for clicking cats.
 
 This is part of the FEWD Nanodegree program at Udacity, using design patterns to build an app from the ground up.
 
-The first commit represents my initial approach to the project specs without understanding the Model View Octopus pattern.
+The first commit represents my initial approach to the project specs without understanding the Model View Octopus (a take on Model View Controller/Model View ViewModel) pattern.
 
 ## Project Specs
 
