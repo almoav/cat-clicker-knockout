@@ -6,19 +6,19 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div data-bind='with: currentCat'>
+        <h2 class='cat-name' data-bind='text: name'></h2>
+        <p>level: <strong data-bind='text: level'></strong></p>
+        <div class='cat-count' data-bind='text: clickCount'></div>
+        <img class='cat-img' alt='cute cat' data-bind='click: $parent.incrementCounter, attr: {src: imgSrc}'>
 
-    <h2 class='cat-name' data-bind='text: currentCat().name'></h2>
-    <p>level: <strong data-bind='text: currentCat().level'></strong></p>
-    <div class='cat-count' data-bind='text: currentCat().clickCount'></div>
-    <img class='cat-img' alt='cute cat' data-bind='click: incrementCounter, attr: {src: currentCat().imgSrc}'>
-
-    <h3>Nicknames</h3>
-    <ul data-bind='foreach: currentCat().nicknames'>
-        <li>
-            <span data-bind='text: name'></span>
-        </li>
-    </ul>
-
+        <h3>Nicknames</h3>
+        <ul data-bind='foreach: nicknames'>
+            <li>
+                <span data-bind='text: name'></span>
+            </li>
+        </ul>
+    </div>
     <script type='text/javascript' src='node_modules/knockout/build/output/knockout-latest.js'></script>
     <script async src="js/main.js"></script>
 </body>
