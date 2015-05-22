@@ -24,9 +24,9 @@ var initialCats = [
         nicknames: ['Corey', 'Trevor', 'Smokes', 'Lets go']
     },
     {
-        name: 'Lurpy',
+        name: 'Ted',
         clickCount: 0,
-        imgSrc: 'img/lurpy.jpg',
+        imgSrc: 'img/ted.jpg',
         nicknames: ['Bubbles', 'Kittyland', 'Lovecenter', 'Decent']
     },
 ];
@@ -61,17 +61,16 @@ var AppViewModel = function() {
     initialCats.forEach(function(catItem){
         self.catList.push( new Cat(catItem) );
     })
-    this.currentCat = ko.observable( new Cat({
-        name: 'Derpy',
-        clickCount: 0,
-        imgSrc: 'img/derpy.jpg',
-        nicknames: ['Mustard', 'Tiger', 'Phil', 'Collins']
-    }) );
+    this.currentCat = ko.observable( this.catList()[0] );
 
     this.incrementCounter = function() {
         self.currentCat().clickCount(self.currentCat().clickCount() + 1);
     };
 
+    this.loadCat = function() {
+        self.currentCat(this);
+        console.log(this.name());
+    };
 
 }
 

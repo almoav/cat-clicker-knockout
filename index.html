@@ -6,6 +6,12 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <ul data-bind='foreach: catList'>
+        <li>
+            <button data-bind='click: $parent.loadCat, text: $data.name'></button>
+        </li>
+    </ul>
+
     <div data-bind='with: currentCat'>
         <h2 class='cat-name' data-bind='text: name'></h2>
         <p>level: <strong data-bind='text: level'></strong></p>
@@ -15,7 +21,7 @@
         <h3>Nicknames</h3>
         <ul data-bind='foreach: nicknames'>
             <li>
-                <span data-bind='text: name'></span>
+                <span data-bind='text: $data'></span>
             </li>
         </ul>
     </div>
