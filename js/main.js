@@ -1,13 +1,42 @@
-var Cat = function() {
-    this.clickCount = ko.observable(0);
-    this.name = ko.observable('Derpy');
-    this.imgSrc = ko.observable('img/derpy.jpg');
-    this.nicknames = ko.observableArray([
-        {name: 'Mustard'},
-        {name: 'Tiger'},
-        {name: 'Dirty'},
-        {name: 'Burger'}
-    ]);
+var initialCats = [
+    {
+        name: 'Derpy',
+        clickCount: 0,
+        imgSrc: 'img/derpy.jpg',
+        nicknames: ['Mustard', 'Tiger', 'Phil', 'Collins']
+    },
+    {
+        name: 'Furpy',
+        clickCount: 0,
+        imgSrc: 'img/furpy.jpg',
+        nicknames: ['Randy', 'Cheeseburger', 'Picnic']
+    },
+    {
+        name: 'Lurpy',
+        clickCount: 0,
+        imgSrc: 'img/lurpy.jpg',
+        nicknames: ['Jim', 'Lahey', 'Trailerpark', 'Supervisor']
+    },
+    {
+        name: 'Smurpy',
+        clickCount: 0,
+        imgSrc: 'img/smurpy.jpg',
+        nicknames: ['Corey', 'Trevor', 'Smokes', 'Lets go']
+    },
+    {
+        name: 'Lurpy',
+        clickCount: 0,
+        imgSrc: 'img/lurpy.jpg',
+        nicknames: ['Bubbles', 'Kittyland', 'Lovecenter', 'Decent']
+    },
+];
+
+
+var Cat = function(data) {
+    this.clickCount = ko.observable(data.clickCount);
+    this.name = ko.observable(data.name);
+    this.imgSrc = ko.observable(data.imgSrc);
+    this.nicknames = ko.observableArray(data.nicknames);
 
     this.level = ko.computed(function() {
         if (this.clickCount() < 10) {
@@ -27,7 +56,17 @@ var Cat = function() {
 
 var AppViewModel = function() {
     var self = this;
-    this.currentCat = ko.observable( new Cat() );
+    this.catList = ko.observableArray([]);
+
+    initialCats.forEach(function(catItem){
+        self.catList.push( new Cat(catItem) );
+    })
+    this.currentCat = ko.observable( new Cat({
+        name: 'Derpy',
+        clickCount: 0,
+        imgSrc: 'img/derpy.jpg',
+        nicknames: ['Mustard', 'Tiger', 'Phil', 'Collins']
+    }) );
 
     this.incrementCounter = function() {
         self.currentCat().clickCount(self.currentCat().clickCount() + 1);
