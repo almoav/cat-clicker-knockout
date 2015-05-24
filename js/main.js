@@ -69,7 +69,7 @@ var AppViewModel = function() {
 
     this.loadCat = function() {
         self.currentCat(this);
-        console.log(this.name());
+        //console.log(this.name());
     };
 
 }
